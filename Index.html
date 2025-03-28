@@ -11,11 +11,55 @@
     <div id="appContainer">
         <!-- Game Container -->
         <div id="gameContainer">
-            <!-- ... (keep all existing game HTML from previous version) ... -->
+            <canvas id="gameCanvas"></canvas>
+            
+            <div id="hud">
+                <div class="hud-item">Score: <span id="scoreDisplay">0</span></div>
+                <div class="hud-item">Level: <span id="levelDisplay">1</span></div>
+                <div class="hud-item">Lives: <span id="livesDisplay">3</span></div>
+                <div class="hud-item">Dragon: <span id="dragonDisplay">Fire</span></div>
+            </div>
+            
+            <div id="abilityContainer">
+                <div id="abilityText">Ability Ready (Press Space)</div>
+                <div id="abilityIndicator">
+                    <div id="abilityBar"></div>
+                </div>
+            </div>
+            
+            <div id="menuScreen" class="screen">
+                <h1>DRAGON ADVENTURE</h1>
+                <div class="menu-buttons">
+                    <button class="button" id="startButton">START GAME</button>
+                    <button class="button" id="dragonSelectButton">SELECT DRAGON</button>
+                    <button class="button" id="musicToggle">MUSIC: ON</button>
+                    <button class="button" id="soundToggle">SOUND: ON</button>
+                </div>
+            </div>
+            
+            <div id="gameOverScreen" class="screen">
+                <h1>GAME OVER</h1>
+                <div class="score-display">
+                    <h2>FINAL SCORE: <span id="finalScore">0</span></h2>
+                    <h2>LEVEL REACHED: <span id="finalLevel">1</span></h2>
+                </div>
+                <div class="menu-buttons">
+                    <button class="button" id="restartButton">PLAY AGAIN</button>
+                    <button class="button" id="quitButton2">QUIT</button>
+                </div>
+            </div>
+            
+            <div class="mobile-controls" id="mobileControls">
+                <div class="mobile-btn" id="upBtn">↑</div>
+                <div class="mobile-btn" id="downBtn">↓</div>
+                <div class="mobile-btn" id="leftBtn">←</div>
+                <div class="mobile-btn" id="rightBtn">→</div>
+                <div class="mobile-btn ability-btn" id="abilityBtn">A</div>
+            </div>
         </div>
         
         <!-- QR Generator Container -->
-        <div id="qrContainer" class="tool-container">
+        <div id="qrContainer" class="tool-container" style="display:none;">
             <h2>Menu QR Generator</h2>
             <div class="upload-area" id="dropArea">
                 <p>Drag & Drop Menu Image Here</p>
@@ -39,7 +83,7 @@
     </div>
 
     <!-- QR Code Library -->
-    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
     <script src="game.js"></script>
     <script src="qr-generator.js"></script>
 </body>
