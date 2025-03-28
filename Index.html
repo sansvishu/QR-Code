@@ -3,88 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dragon Adventure & QR Generator</title>
+    <title>QR Code Generator</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div id="appContainer">
-        <!-- Game Container -->
-        <div id="gameContainer">
-            <canvas id="gameCanvas"></canvas>
+    <div class="container">
+        <h1>QR Code Generator</h1>
+        
+        <div class="input-section">
+            <label for="dataType">Select Data Type:</label>
+            <select id="dataType">
+                <option value="url">URL</option>
+                <option value="text">Text</option>
+                <option value="contact">Contact Info (vCard)</option>
+                <option value="wifi">WiFi Credentials</option>
+            </select>
             
-            <div id="hud">
-                <div class="hud-item">Score: <span id="scoreDisplay">0</span></div>
-                <div class="hud-item">Level: <span id="levelDisplay">1</span></div>
-                <div class="hud-item">Lives: <span id="livesDisplay">3</span></div>
-                <div class="hud-item">Dragon: <span id="dragonDisplay">Fire</span></div>
+            <div id="urlInput">
+                <label for="url">Enter URL:</label>
+                <input type="url" id="url" placeholder="https://example.com">
             </div>
             
-            <div id="abilityContainer">
-                <div id="abilityText">Ability Ready (Press Space)</div>
-                <div id="abilityIndicator">
-                    <div id="abilityBar"></div>
-                </div>
+            <div id="textInput" class="hidden">
+                <label for="text">Enter Text:</label>
+                <textarea id="text" rows="4" placeholder="Enter any text"></textarea>
             </div>
             
-            <div id="menuScreen" class="screen">
-                <h1>DRAGON ADVENTURE</h1>
-                <div class="menu-buttons">
-                    <button class="button" id="startButton">START GAME</button>
-                    <button class="button" id="dragonSelectButton">SELECT DRAGON</button>
-                    <button class="button" id="musicToggle">MUSIC: ON</button>
-                    <button class="button" id="soundToggle">SOUND: ON</button>
-                </div>
+            <div id="contactInput" class="hidden">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" placeholder="John">
+                
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" placeholder="Doe">
+                
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" placeholder="+1234567890">
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="john@example.com">
             </div>
             
-            <div id="gameOverScreen" class="screen">
-                <h1>GAME OVER</h1>
-                <div class="score-display">
-                    <h2>FINAL SCORE: <span id="finalScore">0</span></h2>
-                    <h2>LEVEL REACHED: <span id="finalLevel">1</span></h2>
-                </div>
-                <div class="menu-buttons">
-                    <button class="button" id="restartButton">PLAY AGAIN</button>
-                    <button class="button" id="quitButton2">QUIT</button>
-                </div>
+            <div id="wifiInput" class="hidden">
+                <label for="ssid">Network Name (SSID):</label>
+                <input type="text" id="ssid" placeholder="MyWiFi">
+                
+                <label for="password">Password:</label>
+                <input type="text" id="password" placeholder="mypassword">
+                
+                <label for="encryption">Encryption Type:</label>
+                <select id="encryption">
+                    <option value="WPA">WPA/WPA2</option>
+                    <option value="WEP">WEP</option>
+                    <option value="nopass">None</option>
+                </select>
             </div>
             
-            <div class="mobile-controls" id="mobileControls">
-                <div class="mobile-btn" id="upBtn">↑</div>
-                <div class="mobile-btn" id="downBtn">↓</div>
-                <div class="mobile-btn" id="leftBtn">←</div>
-                <div class="mobile-btn" id="rightBtn">→</div>
-                <div class="mobile-btn ability-btn" id="abilityBtn">A</div>
-            </div>
+            <button id="generateBtn">Generate QR Code</button>
         </div>
         
-        <!-- QR Generator Container -->
-        <div id="qrContainer" class="tool-container" style="display:none;">
-            <h2>Menu QR Generator</h2>
-            <div class="upload-area" id="dropArea">
-                <p>Drag & Drop Menu Image Here</p>
-                <p>or</p>
-                <input type="file" id="fileInput" accept="image/*">
-                <button class="button" id="uploadBtn">Select Image</button>
-            </div>
-            <div class="preview-area">
-                <div class="image-preview" id="imagePreview"></div>
-                <div class="qr-preview" id="qrPreview"></div>
-            </div>
-            <div class="qr-controls">
-                <button class="button" id="generateBtn">Generate QR Code</button>
-                <button class="button" id="downloadBtn">Download QR Code</button>
-                <input type="text" id="qrLink" placeholder="Or enter URL for QR code">
-            </div>
-        </div>
-        
-        <!-- Toggle Button -->
-        <button id="toggleTool" class="button">Switch to QR Generator</button>
+        <div id="qrcode"></div>
+        <button id="downloadBtn" class="download-btn hidden">Download QR Code</button>
     </div>
 
-    <!-- QR Code Library -->
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-    <script src="game.js"></script>
-    <script src="qr-generator.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
