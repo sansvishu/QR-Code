@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dragon Adventure & QR Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="appContainer">
+        <!-- Game Container -->
+        <div id="gameContainer">
+            <!-- ... (keep all existing game HTML from previous version) ... -->
+        </div>
+        
+        <!-- QR Generator Container -->
+        <div id="qrContainer" class="tool-container">
+            <h2>Menu QR Generator</h2>
+            <div class="upload-area" id="dropArea">
+                <p>Drag & Drop Menu Image Here</p>
+                <p>or</p>
+                <input type="file" id="fileInput" accept="image/*">
+                <button class="button" id="uploadBtn">Select Image</button>
+            </div>
+            <div class="preview-area">
+                <div class="image-preview" id="imagePreview"></div>
+                <div class="qr-preview" id="qrPreview"></div>
+            </div>
+            <div class="qr-controls">
+                <button class="button" id="generateBtn">Generate QR Code</button>
+                <button class="button" id="downloadBtn">Download QR Code</button>
+                <input type="text" id="qrLink" placeholder="Or enter URL for QR code">
+            </div>
+        </div>
+        
+        <!-- Toggle Button -->
+        <button id="toggleTool" class="button">Switch to QR Generator</button>
+    </div>
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="game.js"></script>
+    <script src="qr-generator.js"></script>
+</body>
+</html>
