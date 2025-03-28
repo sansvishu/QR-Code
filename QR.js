@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Get all elements
     const qrContainer = document.getElementById('qrContainer');
     const gameContainer = document.getElementById('gameContainer');
     const toggleToolBtn = document.getElementById('toggleTool');
@@ -15,18 +16,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Toggle between game and QR tool
     toggleToolBtn.addEventListener('click', function() {
-        if (qrContainer.style.display === 'block') {
-            qrContainer.style.display = 'none';
-            gameContainer.style.display = 'block';
-            toggleToolBtn.textContent = 'Switch to QR Generator';
-        } else {
+        if (qrContainer.style.display === 'none') {
             qrContainer.style.display = 'block';
             gameContainer.style.display = 'none';
             toggleToolBtn.textContent = 'Switch to Game';
+        } else {
+            qrContainer.style.display = 'none';
+            gameContainer.style.display = 'block';
+            toggleToolBtn.textContent = 'Switch to QR Generator';
         }
     });
     
-    // Handle drag and drop
+    // Handle drag and drop events
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropArea.addEventListener(eventName, preventDefaults, false);
     });
@@ -69,9 +70,13 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function handleFiles(files) {
-        if (files.length > 0) {
+        if (files && files.length > 0) {
             currentFile = files[0];
-            displayImagePreview(currentFile);
+            if (currentFile.type.startsWith('image/')) {
+                displayImagePreview(currentFile);
+            } else {
+                alert('Please select an image file');
+            }
         }
     }
     
@@ -87,49 +92,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     generateBtn.addEventListener('click', function() {
-        if (!currentFile && !qrLink.value) {
+        if (!currentFile && !qrLink.value.trim()) {
             alert('Please upload an image or enter a URL');
             return;
         }
         
         qrPreview.innerHTML = '';
         
-        // Create data URL for QR code
-        let qrData;
-        if (currentFile) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                qrData = e.target.result;
-                generateQRCode(qrData);
-            };
-            reader.readAsDataURL(currentFile);
-        } else {
-            qrData = qrLink.value;
-            generateQRCode(qrData);
-        }
+        const qrData = currentFile ? 
+            new Promise(resolve => {
+                const reader = new FileReader();
+                reader.onload = e => resolve(e.target.result);
+                reader.readAsDataURL(currentFile);
+            }) : 
+            Promise.resolve(qrLink.value.trim());
+        
+        qrData.then(data => {
+            QRCode.toCanvas(qrPreview, data, {
+                width: 200,
+                color: {
+                    dark: '#33ff33',
+                    light: '#00000000'
+                }
+            }, function(error) {
+                if (error) {
+                    console.error(error);
+                    alert('Error generating QR code');
+                }
+            });
+        });
     });
     
-    function generateQRCode(data) {
-        new QRCode(qrPreview, {
-            text: data,
-            width: 256,
-            height: 256,
-            colorDark: "#33ff33",
-            colorLight: "transparent",
-            correctLevel: QRCode.CorrectLevel.H
-        });
-    }
-    
     downloadBtn.addEventListener('click', function() {
-        if (!qrPreview.querySelector('img')) {
+        const canvas = qrPreview.querySelector('canvas');
+        if (!canvas) {
             alert('Please generate a QR code first');
             return;
         }
         
-        const qrImage = qrPreview.querySelector('img');
         const link = document.createElement('a');
         link.download = 'menu-qr-code.png';
-        link.href = qrImage.src;
+        link.href = canvas.toDataURL('image/png');
         link.click();
     });
 });
