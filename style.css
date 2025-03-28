@@ -1,78 +1,51 @@
-/* Add these new styles to your existing CSS */
+/* Add to your existing CSS */
 
 #appContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .tool-container {
-    display: none;
-    width: 100%;
-    max-width: 800px;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.9);
     padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
     color: white;
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-}
-
-#qrContainer h2 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #33ff33;
-    text-shadow: 0 0 5px #33ff33;
 }
 
 .upload-area {
-    border: 2px dashed #555;
-    border-radius: 10px;
-    padding: 30px;
+    border: 2px dashed #666;
+    padding: 20px;
     text-align: center;
     margin-bottom: 20px;
-    transition: all 0.3s;
-}
-
-.upload-area:hover {
-    border-color: #33ff33;
-    background-color: rgba(50, 50, 50, 0.5);
+    border-radius: 5px;
 }
 
 .upload-area.highlight {
     border-color: #33ff33;
-    background-color: rgba(50, 50, 50, 0.8);
-}
-
-#fileInput {
-    display: none;
+    background-color: rgba(51, 255, 51, 0.1);
 }
 
 .preview-area {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 20px;
+    justify-content: space-between;
     margin-bottom: 20px;
 }
 
 .image-preview, .qr-preview {
-    width: 300px;
-    height: 300px;
-    border: 2px solid #555;
-    border-radius: 10px;
+    width: 48%;
+    min-height: 200px;
+    border: 1px solid #444;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(50, 50, 50, 0.5);
-    overflow: hidden;
+    background-color: rgba(30, 30, 30, 0.5);
 }
 
 .image-preview img, .qr-preview img {
     max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    max-height: 300px;
 }
 
 .qr-controls {
@@ -83,31 +56,26 @@
 
 #qrLink {
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #555;
-    background-color: #333;
+    background: #222;
+    border: 1px solid #444;
     color: white;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 12px;
+    border-radius: 5px;
 }
 
 #toggleTool {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    z-index: 100;
+    z-index: 1000;
     background-color: #aa33ff;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .preview-area {
         flex-direction: column;
-        align-items: center;
     }
-    
     .image-preview, .qr-preview {
-        width: 250px;
-        height: 250px;
+        width: 100%;
+        margin-bottom: 10px;
     }
 }
